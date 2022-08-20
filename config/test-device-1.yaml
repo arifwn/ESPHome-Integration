@@ -1,0 +1,74 @@
+esphome:
+  name: test-device-1
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_secret
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+  use_address: "192.168.0.231"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Test-Device-1 Fallback Hotspot"
+    password: !secret wifi_ap_fallback_password
+
+captive_portal:
+
+status_led:
+  pin: GPIO2
+
+sensor:
+  - platform: esp32_hall
+    name: "Hall Sensor"
+    update_interval: 60s
+
+# Example configuration entry for finding
+# Service UUIDs and iBeacon UUIDs and identifiers
+esp32_ble_tracker:
+
+esp32_touch:
+  setup_mode: false
+
+binary_sensor:
+  - platform: esp32_touch
+    name: "Touch Pad GPIO27"
+    pin: GPIO27
+    threshold: 1000
+
+# Enable logging
+logger:
+  # level: VERY_VERBOSE
+  
+switch:
+  - platform: gpio
+    name: "Switch GPIO Pin 13"
+    pin: 13
+  - platform: gpio
+    name: "Switch GPIO Pin 16"
+    pin: 16
+  - platform: gpio
+    name: "Switch GPIO Pin 17"
+    pin: 17
+  - platform: gpio
+    name: "Switch GPIO Pin 18"
+    pin: 18
+  - platform: gpio
+    name: "Switch GPIO Pin 19"
+    pin: 19
+  - platform: gpio
+    name: "Switch GPIO Pin 21"
+    pin: 21
+    
